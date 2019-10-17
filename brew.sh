@@ -8,6 +8,8 @@ if [[ ! $(command -v brew) ]]; then
     exit
 fi
 
+brew install bash-completion
+brew install coreutils
 brew install git
 brew install htop
 brew install pwgen
