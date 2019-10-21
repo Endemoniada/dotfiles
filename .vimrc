@@ -3,6 +3,10 @@ set mouse=
 "filetype off
 set background=dark
 
+" Fix backspace
+set nocompatible
+set backspace=indent,eol,start
+
 " When there is a previous search pattern, highlight all its matches.
 set hlsearch
 
@@ -30,3 +34,22 @@ set expandtab
 
 " Highlight whitespace(s) at the end of line.
 autocmd VimEnter * :call matchadd('Error', '\s\+$', -1) | call matchadd('Error', '\%u00A0')
+
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+Plug 'arcticicestudio/nord-vim'
+
+Plug 'chriskempson/base16-vim'
+
+" Initialize plugin system
+call plug#end()
+
+"let base16colorspace=256  " Access colors present in 256 colorspace
+"colorscheme nord
+colorscheme base16-tomorrow-night-eighties
+"colorscheme base16-material-darker
+"colorscheme base16-greenscreen
+"colorscheme base16-eighties
