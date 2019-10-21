@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Install Homebrew
+echo "Installing Homebrew..."
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 if [[ ! $(command -v brew) ]]; then
@@ -8,6 +9,7 @@ if [[ ! $(command -v brew) ]]; then
     exit
 fi
 
+echo "Installing Homebrew Formulae..."
 brew install bash-completion
 brew install coreutils
 brew install git
@@ -22,6 +24,7 @@ brew install watch
 brew install wget
 brew install xz
 
+echo "Installing Homebrew casks..."
 brew tap homebrew/cask
 brew cask install 1password
 brew cask install atom
@@ -39,5 +42,6 @@ brew cask install virtualbox
 brew cask install virtualbox-extension-pack
 
 # Install Source Code Pro Font
+echo "Installing Fonts..."
 brew tap homebrew/cask-fonts
 brew cask install font-source-code-pro
