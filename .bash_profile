@@ -26,6 +26,9 @@ for file in ~/.{bash_prompt,bash_aliases}; do
 done;
 unset file;
 
+# Add Homebrew sbin to path
+export PATH="/usr/local/sbin:$PATH"
+
 
 
 ###

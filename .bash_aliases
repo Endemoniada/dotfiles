@@ -5,9 +5,10 @@
 ###
 
 # Git
-# You must install Git first - ""
+# You must install Git first
 alias gs='git status -sb'
 alias gd='git diff'
+alias gds='git diff --staged'
 alias ga='git add .'
 alias gc='git commit -m' # requires you to type a commit message
 alias gp='git pull'
@@ -21,9 +22,9 @@ alias pyclean='find . -name "*.pyc" -delete'
 
 # Standard ls alises
 if $Darwin; then
-    ls_color="ls -G"
+    ls_color="-G"
 else
-    ls_color="ls --color=auto"
+    ls_color="--color=auto"
 fi
 alias ls="ls ${ls_color}"
 alias ll='ls -l'
