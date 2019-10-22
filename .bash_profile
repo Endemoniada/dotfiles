@@ -4,13 +4,16 @@
 # SYSTEM
 ###
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
-
 if [[ -d ~/bin ]]; then
     export PATH=~/bin:$PATH
 fi
+
+# Add Homebrew sbin to path
+export PATH="/usr/local/sbin:$PATH"
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
     Darwin=true
@@ -19,16 +22,11 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
 fi
 
 
-
 # Load dotfiles:
 for file in ~/.{bash_prompt,bash_aliases}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
-
-# Add Homebrew sbin to path
-export PATH="/usr/local/sbin:$PATH"
-
 
 
 ###
@@ -41,13 +39,18 @@ if [ -f ~/.git-completion.bash ]; then
     export GIT_PS1_SHOWDIRTYSTATE=true
 fi
 
+# Bash completion
+if [[ $(command -v brew) && -f $(brew --prefix)/etc/bash_completion ]]; then
+    source $(brew --prefix)/etc/bash_completion
+fi
+
 # Python virtual environments
 export WORKON_HOME=$HOME/.virtualenvs
 #export WORKON_HOME=/tmp/foo/.virtualenvs
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
-if [[ -f $(brew --prefix)/bin/virtualenvwrapper.sh ]]; then
+if [[ $(command -v brew) && -f $(brew --prefix)/bin/virtualenvwrapper.sh ]]; then
     source $(brew --prefix)/bin/virtualenvwrapper.sh
 fi
 
