@@ -21,7 +21,7 @@ alias grb='git rebase'
 alias pyclean='find . -name "*.pyc" -delete'
 
 # Standard ls alises
-if $Darwin; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
     ls_color="-G"
 else
     ls_color="--color=auto"
@@ -34,6 +34,6 @@ alias l='ll'
 alias fuck='sudo $(fc -ln -1)'
 alias please='sudo -E'
 
-if $Darwin; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
     alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
 fi
