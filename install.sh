@@ -12,7 +12,7 @@ HOMEDIR=$1
 # https://stackoverflow.com/a/246128/10586098
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-FILES="bashrc bash_profile profile bash_aliases bash_prompt tmux.conf vimrc"
+FILES="bashrc bash_profile profile bash_aliases bash_prompt tmux.conf vimrc gitconfig"
 BINFILES="getbatt.sh"
 
 # create symlinks (will create backup of old dotfiles)
