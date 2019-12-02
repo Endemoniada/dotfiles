@@ -54,6 +54,9 @@ if [[ $(command -v brew) && -f $(brew --prefix)/bin/virtualenvwrapper.sh ]]; the
     source $(brew --prefix)/bin/virtualenvwrapper.sh
 fi
 
+# Disable macos zsh wawrning
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 
 # if [[ "$Darwin" ]]; then
 #   # Scripts and variables for various applications installed through homebrew
