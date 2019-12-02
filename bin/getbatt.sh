@@ -12,7 +12,11 @@ battstatus=$(pmset -g batt | grep 'Battery-0' | awk -F';' '{ print $2 }' | awk -
 # Get remaining charge/battery time
 remtime=$(pmset -g batt | grep 'Battery-0' | awk -F';' '{ print $3 }' | awk -F' ' '{ print $1 }')
 
-echo -n "$powersource"
+if [[ "$powersource" == "AC" ]]; then
+	echo -n "🔌"
+else
+	echo -n "🔋"
+fi
 if [[ $battpercent != "100%" ]]; then
 	echo -n " $battpercent"
 fi
