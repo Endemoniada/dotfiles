@@ -1,0 +1,139 @@
+"*":
+  "ansible-vault": {}
+  "autocomplete-plus":
+    confirmCompletion: "tab always, enter when suggestion explicitly selected"
+    includeCompletionsFromAllBuffers: false
+  "autocomplete-python":
+    useKite: false
+  core:
+    audioBeep: false
+    disabledPackages: [
+      "spell-check"
+      "github"
+      "autocomplete-snippets"
+      "autocomplete-python"
+      "wrap-guide"
+      "markdown-preview-plus"
+    ]
+    projectHome: "/Users/martekbe/git"
+    restorePreviousWindowsOnStart: "always"
+    telemetryConsent: "limited"
+    themes: [
+      "one-dark-ui"
+      "base16-eighties-one-dark"
+    ]
+  "docblock-python":
+    style: "google"
+  editor:
+    fontFamily: "Consolas"
+    fontSize: 11
+    invisibles: {}
+    preferredLineLength: 120
+    scrollPastEnd: true
+    showIndentGuide: true
+    showInvisibles: true
+    softWrap: true
+    tabLength: 4
+  "exception-reporting":
+    userId: "25aab066-ba30-5127-bbfb-7e2db90d344c"
+  "git-plus":
+    general:
+      _analyticsUserId: "4c6a1f13-9229-4ce1-8888-0360d372c630"
+    remoteInteractions:
+      pullBeforePush: true
+      pullRebase: true
+  linter: {}
+  "linter-flake8":
+    executablePath: "~/.virtualenvs/$PROJECT_NAME/bin/flake8;/usr/local/bin/flake8"
+    maxLineLength: 120
+    projectConfigFile: [
+      "$PROJECT/.flake8"
+    ]
+  "linter-python":
+    executablePath: "/usr/local/bin/pylama"
+    lintTrigger: "File saved or modified"
+    optionsFile: "~/.config/flake8"
+    withPep8: true
+  "linter-shellcheck":
+    enableNotice: true
+    shellcheckExecutablePath: "/usr/local/bin/shellcheck"
+  "linter-ui-default":
+    panelHeight: 182
+    showPanel: true
+  "markdown-preview":
+    useGitHubStyle: true
+  "markdown-preview-plus":
+    syntaxThemeName: "atom-dark-syntax"
+  minimap: {}
+  "one-dark-ui":
+    fontSize: 10
+  "python-autopep8":
+    maxLineLength: 120
+  "python-black":
+    binPath: "/usr/local/bin/black"
+    fmtOnSave: false
+    lineLength: 120
+  "python-tools":
+    pythonPath: "/usr/local/bin/python3"
+  script:
+    scrollWithOutput: false
+    stopOnRerun: true
+  "seti-syntax":
+    themeColor: "Red"
+  "seti-ui":
+    compactView: true
+    themeColor: "Red"
+  "spell-check": {}
+  welcome:
+    showOnStartup: false
+".c.source":
+  editor:
+    preferredLineLength: 219
+  "multi-wrap-guide":
+    columns: [
+      219
+    ]
+".gfm.source":
+  editor:
+    preferredLineLength: 120
+  "multi-wrap-guide":
+    columns: [
+      120
+    ]
+".null-grammar.plain.text":
+  editor:
+    preferredLineLength: 121
+  "multi-wrap-guide":
+    columns: [
+      121
+    ]
+".plain.text":
+  editor:
+    preferredLineLength: 121
+  "multi-wrap-guide":
+    columns: [
+      121
+    ]
+".python.source":
+  editor:
+    preferredLineLength: 120
+  "multi-wrap-guide":
+    columns: [
+      120
+    ]
+".shell.source":
+  editor:
+    preferredLineLength: 120
+  "multi-wrap-guide":
+    columns: [
+      120
+    ]
+".source.yaml":
+  editor:
+    autoIndentOnPaste: true
+    preferredLineLength: 120
+    tabLength: 2
+  "multi-wrap-guide":
+    columns: [
+      120
+    ]

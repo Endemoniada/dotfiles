@@ -14,6 +14,7 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 FILES="bashrc bash_profile profile bash_aliases bash_prompt tmux.conf vimrc gitconfig"
 BINFILES="getbatt.sh"
+ATOM_FILES="config.cson keymap.cson"
 
 # create symlinks (will create backup of old dotfiles)
 for FILE in ${FILES}; do
@@ -56,5 +57,18 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
         # Run the Atom Script
         echo "Running Atom packages installation script..."
         "$HERE"/atom.sh
+
+        echo "Installing Atom configuration files..."
+        for FILE in ${ATOM_FILES}; do
+            if [[ -f "${HOMEDIR}/.atom/${FILE}" ]]; then
+                echo "Making backup of existing file: .${FILE}"
+                mv -v "${HOMEDIR}/.atom/${FILE}" "${HOMEDIR}/.atom/${FILE}.bak"
+            fi
+            echo "Copying file to .$FILE in home directory."
+            cp -v "${HERE}/atom/${FILE}" "${HOMEDIR}/.atom/${FILE}"
+        done
     fi
+
+    # Install user fonts
+    cp -vf "fonts/*" "${HOMEDIR}/Library/Fonts/"
 fi
