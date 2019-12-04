@@ -71,4 +71,14 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 
     # Install user fonts
     cp -vf "fonts/*" "${HOMEDIR}/Library/Fonts/"
+
+    # TODO: Add section for tmux plugin installer
+    # git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    echo "Installing Tmux Plugin Manager..."
+    if [[ ! -d "${HOMEDIR}/.tmux/plugins" ]]; then
+        mkdir -p "${HOMEDIR}/.tmux/plugins"
+    fi
+    if [[ ! -d "${HOMEDIR}/.tmux/plugins/tpm" ]]; then
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    fi
 fi
