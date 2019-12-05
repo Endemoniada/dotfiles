@@ -9,76 +9,165 @@ if [ "$#" -ne 1 ]; then
 fi
 
 HOMEDIR=$1
-# https://stackoverflow.com/a/246128/10586098
-HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+if [[ ! -d "$HOMEDIR" ]]; then
+    echo "Cannot find path: ${HOMEDIR}"
+    echo "Exiting..."
+    exit 1
+fi
+HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"  # https://stackoverflow.com/a/246128/10586098
 
 FILES="bashrc bash_profile profile bash_aliases bash_prompt tmux.conf vimrc gitconfig"
 BINFILES="getbatt.sh"
 ATOM_FILES="config.cson keymap.cson"
 
-# create symlinks (will create backup of old dotfiles)
-for FILE in ${FILES}; do
-    if [[ -f "${HOMEDIR}/.${FILE}" && ! -h "${HOMEDIR}/.${FILE}" ]]; then
-        echo "Making backup of existing file: .${FILE}"
-        mv "${HOMEDIR}/.${FILE}" "${HOMEDIR}/.${FILE}.bak"
-    fi
-    echo "Creating symlink to .$FILE in home directory."
-    ln -sf "${HERE}/.${FILE}" "${HOMEDIR}/.${FILE}"
-done
+# Usage: `ask [Y|N]`
+# Supplied parameter will decide the default answer
+# Default is No`
+ask () {
+  default=$(echo "${1:0:1}" | awk '{print toupper($0)}')
+  if [[ "$default" == "Y" ]]; then
+    choices="[Y/n]"
+  else
+    choices="[y/N]"
+  fi
+  read -r -p "${choices}> " answer
+  if [[ "$answer" == "" ]]; then
+    answer=$default
+  fi
+  echo "${answer:0:1}" | awk '{print toupper($0)}'
+}
 
-if [[ ! -d "${HOMEDIR}/bin" ]]; then
-    mkdir "${HOMEDIR}/bin"
-fi
-for FILE in ${BINFILES}; do
-    if [[ -f "${HOMEDIR}/bin/${FILE}" && ! -h "${HOMEDIR}/bin/${FILE}" ]]; then
-        echo "Making backup of existing file: ${FILE}"
-        mv "${HOMEDIR}/bin/${FILE}" "${HOMEDIR}/bin/${FILE}.bak"
-    fi
-    echo "Creating symlink to $FILE in ~/bin."
-    ln -sf "${HERE}/bin/${FILE}" "${HOMEDIR}/bin/${FILE}"
-done
-
-# Download Git Auto-Completion
-echo -n "Downloading git-completion..."
-curl -s "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" > "${HOMEDIR}"/.git-completion.bash
-echo " Done"
-
-# Only automatically run the brew install script if operating system is a Mac
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    # Only run this if brew is NOT installed
-    if [[ ! $(command -v brew) ]]; then
-        # Run the Homebrew Script
-        echo "Running Homebrew installation script..."
-        "$HERE"/brew.sh
-    fi
-
-    # Only run this if Atom/apm is installed
-    if [[ $(command -v apm) ]]; then
-        # Run the Atom Script
-        echo "Running Atom packages installation script..."
-        "$HERE"/atom.sh
-
-        echo "Installing Atom configuration files..."
-        for FILE in ${ATOM_FILES}; do
-            if [[ -f "${HOMEDIR}/.atom/${FILE}" ]]; then
+inst_dotfiles () {
+    echo "Install symlinks to dotfiles?"
+    if [[ "$(ask Y)" == "Y" ]]; then
+        # create symlinks (will create backup of old dotfiles)
+        for FILE in ${FILES}; do
+            if [[ -f "${HOMEDIR}/.${FILE}" && ! -h "${HOMEDIR}/.${FILE}" ]]; then
                 echo "Making backup of existing file: .${FILE}"
-                mv -v "${HOMEDIR}/.atom/${FILE}" "${HOMEDIR}/.atom/${FILE}.bak"
+                mv "${HOMEDIR}/.${FILE}" "${HOMEDIR}/.${FILE}.bak"
             fi
-            echo "Copying file to .$FILE in home directory."
-            cp -v "${HERE}/atom/${FILE}" "${HOMEDIR}/.atom/${FILE}"
+            echo "Creating symlink to .$FILE in ${HOMEDIR} directory."
+            ln -sf "${HERE}/.${FILE}" "${HOMEDIR}/.${FILE}"
+        done
+
+        # Download Git Auto-Completion
+        echo -n "Downloading git-completion..."
+        curl -s "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" > "${HOMEDIR}"/.git-completion.bash
+        echo " Done"
+    fi
+    echo
+}
+
+inst_binfiles () {
+    echo "Create ${HOMEDIR}/bin and install symlinks to binaries?"
+    if [[ "$(ask Y)" == "Y" ]]; then
+        if [[ ! -d "${HOMEDIR}/bin" ]]; then
+            mkdir "${HOMEDIR}/bin"
+        fi
+        for FILE in ${BINFILES}; do
+            if [[ -f "${HOMEDIR}/bin/${FILE}" && ! -h "${HOMEDIR}/bin/${FILE}" ]]; then
+                echo "Making backup of existing file: ${FILE}"
+                mv "${HOMEDIR}/bin/${FILE}" "${HOMEDIR}/bin/${FILE}.bak"
+            fi
+            echo "Creating symlink to $FILE in ${HOMEDIR}/bin."
+            ln -sf "${HERE}/bin/${FILE}" "${HOMEDIR}/bin/${FILE}"
         done
     fi
+    echo
+}
 
-    # Install user fonts
-    cp -vf "fonts/*" "${HOMEDIR}/Library/Fonts/"
+inst_homebrew () {
+    echo "Install Homebrew?"
+    if [[ "$(ask N)" == "Y" ]]; then
+        # Only automatically run the brew install script if operating system is a Mac
+        if [[ "$(uname -s)" == "Darwin" ]]; then
+            # Only run this if brew is NOT installed
+            if [[ ! $(command -v brew) ]]; then
+                # Run the Homebrew Script
+                echo "Running Homebrew installation script..."
+                "$HERE"/brew.sh
+            fi
+        fi
+    fi
+    echo
+}
 
-    # TODO: Add section for tmux plugin installer
-    # git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    echo "Installing Tmux Plugin Manager..."
-    if [[ ! -d "${HOMEDIR}/.tmux/plugins" ]]; then
-        mkdir -p "${HOMEDIR}/.tmux/plugins"
+inst_atom () {
+    # Only automatically run the brew install script if operating system is a Mac
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+
+        echo "Install Atom packages?"
+        if [[ "$(ask N)" == "Y" ]]; then
+
+            # Only run this if Atom/apm is installed
+            if [[ $(command -v apm) ]]; then
+                # Run the Atom Script
+                echo "Running Atom packages installation script..."
+                "$HERE"/atom.sh
+            fi
+        fi
+        echo
+
+        echo "Install Atom configuration?"
+        if [[ "$(ask Y)" == "Y" ]]; then
+
+            echo "Installing Atom configuration files..."
+            # TODO: show diff and ask for confirmation
+            # diff -u --suppress-common-lines
+            if [[ ! -d "${HOMEDIR}/.atom" ]]; then
+                mkdir "${HOMEDIR}/.atom"
+            fi
+            for FILE in ${ATOM_FILES}; do
+                if [[ -f "${HOMEDIR}/.atom/${FILE}" ]]; then
+                    echo "Making backup of existing file: .${FILE}"
+                    mv -v "${HOMEDIR}/.atom/${FILE}" "${HOMEDIR}/.atom/${FILE}.bak"
+                fi
+                echo "Copying file to .$FILE in home directory."
+                cp -v "${HERE}/atom/${FILE}" "${HOMEDIR}/.atom/${FILE}"
+            done
+        fi
     fi
-    if [[ ! -d "${HOMEDIR}/.tmux/plugins/tpm" ]]; then
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    echo
+}
+
+inst_fonts () {
+    echo "Install fonts?"
+    if [[ "$(ask Y)" == "Y" ]]; then
+        # Only automatically run the brew install script if operating system is a Mac
+        if [[ "$(uname -s)" == "Darwin" ]]; then
+            # Install user fonts
+            echo "Installing user fonts in ~/Library/Fonts/"
+            cp -vn "${HERE}"/fonts/* ~/Library/Fonts/ || :  # Ignore errors: https://serverfault.com/a/153893
+        fi
     fi
-fi
+    echo
+}
+
+inst_tmux () {
+    echo "Install Tmux Plugin Manager?"
+    if [[ "$(ask Y)" == "Y" ]]; then
+        # Only automatically run the brew install script if operating system is a Mac
+        if [[ "$(uname -s)" == "Darwin" ]]; then
+            # TODO: Add section for tmux plugin installer
+            # git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+            echo "Installing Tmux Plugin Manager..."
+            if [[ ! -d "${HOMEDIR}"/.tmux/plugins ]]; then
+                mkdir -p "${HOMEDIR}"/.tmux/plugins
+            fi
+            if [[ ! -d "${HOMEDIR}/.tmux/plugins/tpm" ]]; then
+                git clone https://github.com/tmux-plugins/tpm "${HOMEDIR}"/.tmux/plugins/tpm
+            fi
+        fi
+    fi
+    echo
+}
+
+
+inst_dotfiles
+inst_binfiles
+inst_homebrew
+inst_atom
+inst_fonts
+inst_tmux
+
+echo "All done!"
