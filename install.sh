@@ -166,17 +166,12 @@ inst_tmux () {
     if [[ "$(ask Y)" == "Y" ]]; then
         echo
 
-        # Only automatically run the brew install script if operating system is a Mac
-        if [[ "$(uname -s)" == "Darwin" ]]; then
-            # TODO: Add section for tmux plugin installer
-            # git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-            action "Installing Tmux Plugin Manager..."
-            if [[ ! -d "${HOMEDIR}"/.tmux/plugins ]]; then
-                mkdir -p "${HOMEDIR}"/.tmux/plugins
-            fi
-            if [[ ! -d "${HOMEDIR}/.tmux/plugins/tpm" ]]; then
-                git clone https://github.com/tmux-plugins/tpm "${HOMEDIR}"/.tmux/plugins/tpm
-            fi
+        action "Installing Tmux Plugin Manager..."
+        if [[ ! -d "${HOMEDIR}"/.tmux/plugins ]]; then
+            mkdir -p "${HOMEDIR}"/.tmux/plugins
+        fi
+        if [[ ! -d "${HOMEDIR}/.tmux/plugins/tpm" ]]; then
+            git clone https://github.com/tmux-plugins/tpm "${HOMEDIR}"/.tmux/plugins/tpm
         fi
     fi
     echo
