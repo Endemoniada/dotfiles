@@ -103,8 +103,8 @@ inst_homebrew () {
                 "$HERE"/brew.sh
             fi
         fi
+        echo
     fi
-    echo
 }
 
 inst_atom () {
@@ -143,8 +143,8 @@ inst_atom () {
                 cp -v "${HERE}/atom/${FILE}" "${HOMEDIR}/.atom/${FILE}"
             done
         fi
+        echo
     fi
-    echo
 }
 
 inst_fonts () {
@@ -159,8 +159,8 @@ inst_fonts () {
             action "Installing user fonts in ~/Library/Fonts/ ..."
             cp -vn "${HERE}"/fonts/* ~/Library/Fonts/ || :  # Ignore errors: https://serverfault.com/a/153893
         fi
+        echo
     fi
-    echo
 }
 
 inst_tmux () {
@@ -175,6 +175,9 @@ inst_tmux () {
         if [[ ! -d "${HOMEDIR}/.tmux/plugins/tpm" ]]; then
             git clone https://github.com/tmux-plugins/tpm "${HOMEDIR}"/.tmux/plugins/tpm
         fi
+
+        echo "Done!"
+        echo "INFO: If you have reloaded your tmux config, press PREFIX+I to install the plugin"
     fi
     echo
 }
