@@ -174,6 +174,10 @@ inst_tmux () {
         fi
         if [[ ! -d "${HOMEDIR}/.tmux/plugins/tpm" ]]; then
             git clone https://github.com/tmux-plugins/tpm "${HOMEDIR}"/.tmux/plugins/tpm
+        else
+            cd "${HOMEDIR}"/.tmux/plugins/tpm
+            git reset --hard origin/master
+            cd "$HERE"
         fi
 
         echo
@@ -183,7 +187,7 @@ inst_tmux () {
 }
 
 
-action "Starting Dotfiles Installation..."
+action "Starting Dotfiles Installation in ${HOMEDIR} ..."
 echo
 
 inst_dotfiles
