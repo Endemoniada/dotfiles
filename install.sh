@@ -89,12 +89,13 @@ inst_binfiles () {
 }
 
 inst_homebrew () {
-    echo "Install Homebrew?"
-    if [[ "$(ask N)" == "Y" ]]; then
-        echo
+    # Only automatically run the brew install script if operating system is a Mac
+    if [[ "$(uname -s)" == "Darwin" ]]; then
 
-        # Only automatically run the brew install script if operating system is a Mac
-        if [[ "$(uname -s)" == "Darwin" ]]; then
+        echo "Install Homebrew?"
+        if [[ "$(ask N)" == "Y" ]]; then
+            echo
+
             # Only run this if brew is NOT installed
             if [[ ! $(command -v brew) ]]; then
                 # Run the Homebrew Script
@@ -149,6 +150,7 @@ inst_atom () {
 inst_fonts () {
     # Only automatically run the brew install script if operating system is a Mac
     if [[ "$(uname -s)" == "Darwin" ]]; then
+
         echo "Install fonts?"
         if [[ "$(ask Y)" == "Y" ]]; then
             echo
