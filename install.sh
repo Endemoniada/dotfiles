@@ -176,12 +176,15 @@ inst_tmux () {
             git clone https://github.com/tmux-plugins/tpm "${HOMEDIR}"/.tmux/plugins/tpm
         fi
 
-        echo "Done!"
-        echo "INFO: If you have reloaded your tmux config, press PREFIX+I to install the plugin"
+        echo
+        action "INFO: If you have reloaded your tmux config, press PREFIX+I to install the plugin"
     fi
     echo
 }
 
+
+action "Starting Dotfiles Installation..."
+echo
 
 inst_dotfiles
 inst_binfiles
@@ -190,4 +193,4 @@ inst_atom
 inst_fonts
 inst_tmux
 
-echo "All done!"
+action "All done!"
