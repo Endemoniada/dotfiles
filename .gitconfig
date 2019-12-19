@@ -19,3 +19,5 @@
     path = ~/git/mekberg/.gitconfig
 [includeIf "gitdir:~/git/tele2/"]
     path = ~/git/tele2/.gitconfig
+[init]
+	templatedir = /Users/martekbe/.git-templates
