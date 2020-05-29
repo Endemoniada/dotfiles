@@ -27,11 +27,11 @@ colorscheme base16-tomorrow-night-eighties
 set background=dark
 
 " 24 bit colors
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+"If exists('+termguicolors')
+"  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"  set termguicolors
+"Endif
 
 if &term =~ '256color'
   " disable Background Color Erase (BCE) so that color schemes
