@@ -23,6 +23,7 @@ brew install vim
 brew install watch
 brew install wget
 brew install xz
+brew install zlib
 
 echo "Installing Homebrew casks..."
 brew tap homebrew/cask
@@ -32,6 +33,7 @@ brew cask install bettertouchtool
 brew cask install daisydisk
 brew cask install discord
 brew cask install divvy
+brew cask install dropbox
 brew cask install firefox
 brew cask install istat-menus
 brew cask install keepingyouawake
