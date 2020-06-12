@@ -25,6 +25,7 @@ git-plus \
 highlight-selected \
 intentions \
 language-diff \
+language-docker \
 language-generic-config \
 language-powershell \
 language-rpm-spec \
