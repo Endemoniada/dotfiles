@@ -11,6 +11,15 @@ fi
 # Add Homebrew sbin to path
 export PATH="/usr/local/sbin:$PATH"
 
+# Add gnu coreutils to path
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+# Add gnu find to path
+export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+
+# Add gnu sed to path
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
