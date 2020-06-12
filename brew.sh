@@ -10,9 +10,12 @@ if [[ ! $(command -v brew) ]]; then
 fi
 
 echo "Installing Homebrew Formulae..."
+brew install bash
 brew install bash-completion
 brew install coreutils
+brew install findutils
 brew install git
+brew install gnu-sed
 brew install htop
 brew install pwgen
 brew install pyenv
