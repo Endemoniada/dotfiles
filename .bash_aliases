@@ -21,7 +21,7 @@ alias grb='git rebase'
 alias pyclean='find . -name "*.pyc" -delete'
 
 # Standard ls alises
-if [[ "$(uname -s)" == "Darwin" ]]; then
+if [[ "$(uname -s)" == "Darwin" && "$(which ls)" != "/usr/local/opt/coreutils/libexec/gnubin/ls" ]]; then
     ls_color="-G"
 else
     ls_color="--color=auto"
