@@ -20,6 +20,9 @@ export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
 # Add gnu sed to path
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
+# Add openssl to path
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
