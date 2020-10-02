@@ -16,6 +16,7 @@ brew install coreutils
 brew install findutils
 brew install git
 brew install gnu-sed
+brew install helm
 brew install htop
 brew install pwgen
 brew install pyenv
@@ -45,6 +46,7 @@ brew cask install telegram
 brew cask install the-unarchiver
 brew cask install virtualbox
 brew cask install virtualbox-extension-pack
+brew cask install workflowy
 
 # Install Source Code Pro Font
 echo "Installing Fonts..."
