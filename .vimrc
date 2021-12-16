@@ -75,3 +75,7 @@ set expandtab
 
 " Highlight whitespace(s) at the end of line.
 autocmd VimEnter * :call matchadd('Error', '\s\+$', -1) | call matchadd('Error', '\%u00A0')
+
+highlight EvilSpace ctermbg=darkred guibg=darkred
+au Syntax * syn match EvilSpace /\(^\t*\)\@<!\t\+/ " tabs not preceeded by tabs
+au Syntax * syn match EvilSpace /[ \t]\+$/ " trailing space
