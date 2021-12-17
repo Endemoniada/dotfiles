@@ -70,3 +70,15 @@ fi
 
 # Disable macos zsh wawrning
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+
+###
+# DROP-IN FILES
+###
+
+if [[ -d ~/.bashrc.d ]]; then
+    for file in ~/.bashrc.d/*; do
+        source "${file}"
+    done
+    unset file
+fi

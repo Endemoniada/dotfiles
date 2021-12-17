@@ -59,6 +59,9 @@ inst_dotfiles () {
             ln -svf "${HERE}/.${FILE}" "${HOMEDIR}/.${FILE}"
         done
 
+        # Ensure there is a ~/.bashrc.d/ directory
+        mkdir -vp ~/.bashrc.d
+
         # Download Git Auto-Completion
         echo -n "${BOLD}Downloading git-completion...${NORMAL}"
         curl -s "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" > "${HOMEDIR}"/.git-completion.bash
